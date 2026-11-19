@@ -1,131 +1,176 @@
+
 # Photo to Cozy Home
 
-> 把一组家庭照片还原成可漫游、可交互、会随时间变化的 Q 版 WebGL 小家。
+> Reconstruct a collection of family home photos into a navigable, interactive, chibi-style WebGL miniature home that changes over time.
 
 ![GPT 6 Astra](https://img.shields.io/badge/Created%20with-GPT%206%20Astra-6B5B95?style=flat-square)
 ![Codex Skill](https://img.shields.io/badge/Codex-Skill-D9A441?style=flat-square)
 ![WebGL](https://img.shields.io/badge/Output-WebGL-73927C?style=flat-square)
 
-本 Skill 让用户只需提供家中各个房间和角落的照片，就能开始还原住宅。若有户型图，它会优先用来校准墙体、门窗和尺寸关系；若没有，它会根据照片中的门框、窗户、地面分界和重复家具推算空间连接，并向用户确认少量真正影响布局的问题。
+This Skill allows users to begin reconstructing their homes simply by providing photographs of different rooms and corners.
 
-**本 Skill 由 GPT 6 Astra 创作，并使用 GPT 6 Astra 完成首个完整案例和验收。其他模型可自行尝试，实际完成度、空间推理和长流程稳定性可能不同。**
+If a floor plan is available, the Skill prioritizes it to calibrate walls, doors, windows, and dimensional relationships. Without a floor plan, it estimates spatial connections using door frames, windows, floor boundaries, and recurring furniture visible in photographs. It then asks users a small number of targeted questions that genuinely affect the layout.
 
-## 能做什么
+**This Skill was created by GPT 6 Astra, which was also used to complete and validate its first full reference project. Other models may attempt the same workflow, but their actual completion quality, spatial reasoning capabilities, and long-running workflow stability may vary.**
 
-- 从照片识别房间、家具、门窗和空间连接，构建带证据标记的平面图。
-- 基于同一份户型数据生成暖黄色、圆润 Q 版 WebGL 三维住宅。
-- 单独打开每个房间，旋转、缩放、俯视，并在完整墙体和剖面之间切换。
-- 让电脑、电视、灯、台灯、衣柜、沙发和书桌产生可见的交互结果。
-- 放置一名小男孩和一名小女孩，支持手动行走、自主活动和简单作息。
-- 模拟清晨、正午、黄昏、夜晚以及晴天、多云和下雨对室内外光线的影响。
-- 在用户补充照片或纠正户型后，同步更新墙体、家具、导航、挂画、相机和平面图。
+## Features
 
-## GPT 6 Astra 验收案例
+- Identify rooms, furniture, doors, windows, and spatial connections from photographs to construct an evidence-annotated floor plan.
+- Generate a warm-yellow, rounded, chibi-style 3D WebGL home using the same floor-plan dataset.
+- Open individual rooms, rotate the camera, zoom in and out, switch to an overhead view, and toggle between full-wall and cutaway views.
+- Enable visible interactions with computers, televisions, lights, desk lamps, wardrobes, sofas, and desks.
+- Add a young boy and a young girl who support manual movement, autonomous activities, and simple daily routines.
+- Simulate how morning, noon, sunset, nighttime, sunny weather, cloudy conditions, and rain affect indoor and outdoor lighting.
+- Synchronize walls, furniture, navigation, wall decorations, cameras, and floor plans whenever users provide additional photographs or correct the layout.
 
-下面的图片来自最新验收案例。仓库只收录生成后的模型截图，不包含用户提供的原始家庭照片、地址或人物照片。
+## GPT 6 Astra Validation Case
 
-### 从全屋布局到可操作的小家
+The following images come from the latest validation case.
 
-![全屋 WebGL 模型](assets/showcase/whole-home.jpg)
+The repository contains only screenshots of the generated models. It does not include the original family photographs, addresses, or personal photographs provided by users.
 
-全屋视图保留房间选择、人物状态、时间轴、天气和交互入口。人物在同一套世界坐标内活动，进入单房间视图时不会被瞬移。
+### From a Complete Home Layout to an Interactive Miniature Home
 
-### 平面图与三维模型共用布局数据
+![Complete Home WebGL Model](assets/showcase/whole-home.jpg)
 
-![同源平面图](assets/showcase/floor-plan.jpg)
+The complete-home view includes room selection, character status, a timeline, weather controls, and interactive features.
 
-房间边界、开放连接、门窗、家具占地和三维模型来自同一份数据。案例中根据用户后续提供的户型图校正了玄关、餐厅、开放走道，并完成主卧与次卧整房对调。
+Characters move within the same world-coordinate system and are not teleported when switching to an individual room view.
 
-### 房间级还原
+### Floor Plan and 3D Model Share the Same Layout Data
 
-| 主卧套间 | 次卧 |
+![Shared-Data Floor Plan](assets/showcase/floor-plan.jpg)
+
+Room boundaries, open connections, doors, windows, furniture footprints, and the 3D model are all generated from the same dataset.
+
+In the reference project, the layout was corrected using a floor plan subsequently provided by the user. These corrections included adjustments to the entrance, dining room, and open hallway, as well as a complete swap of the master bedroom and secondary bedroom.
+
+### Room-Level Reconstruction
+
+| Master Bedroom Suite | Secondary Bedroom |
 | --- | --- |
-| ![主卧套间](assets/showcase/master-bedroom.jpg) | ![次卧](assets/showcase/secondary-bedroom.jpg) |
+| ![Master Bedroom Suite](assets/showcase/master-bedroom.jpg) | ![Secondary Bedroom](assets/showcase/secondary-bedroom.jpg) |
 
-主卧保留寝区、入口短廊和套内卫浴；次卧保留木床、木衣柜、窗和墙面装饰。衣柜支持打开与合上，墙上装饰会受真实墙段边界约束。
+The master bedroom preserves the sleeping area, short entrance hallway, and ensuite bathroom.
 
-### 开放空间与墙体关系
+The secondary bedroom includes a wooden bed, wooden wardrobe, window, and wall decorations.
 
-![公共区俯视](assets/showcase/open-plan.jpg)
+Wardrobes can be opened and closed, while wall decorations are constrained by the actual boundaries of the wall segments.
 
-客厅、餐厅、玄关和走道可以分别选择，但开放连接处不会凭空出现横梁、门框、立柱或隐形碰撞墙。实体共用墙只生成一次，避免重叠闪烁。
+### Open Spaces and Wall Relationships
 
-### 套内卫浴
+![Overhead View of Open Living Areas](assets/showcase/open-plan.jpg)
 
-![主卫校正](assets/showcase/ensuite.jpg)
+The living room, dining room, entrance, and hallway can be selected individually.
 
-卫浴依据用户补充的视角信息布置洁具和热水器，同时纳入人物通行、门扇开合和家具碰撞检查。
+However, open connections do not generate nonexistent beams, door frames, columns, or invisible collision walls.
 
-该案例的最终验收包括：
+Shared physical walls are generated only once to prevent overlapping geometry and visual flickering.
 
-- 41 项自动化检查全部通过。
-- 4 个固定随机种子分别进行 10 分钟双人自主活动模拟，检查持续到达、人物间距、墙体和家具碰撞。
-- 浏览器实际验证全屋/单房间切换、视角旋转、完整墙体/剖面、电脑与灯光、衣柜开合、人物跨房间活动、昼夜和天气。
-- 浏览器控制台无 error 或 warn。
-- 挂画完整几何保持在真实墙面内，避开门窗和开放通道。
+### Ensuite Bathroom
 
-这些数字是 GPT 6 Astra 首个参考案例的实际结果，不是 Skill 对每套住宅预设的固定测试数量。Skill 会按项目范围生成和执行相应检查。
+![Corrected Ensuite Bathroom](assets/showcase/ensuite.jpg)
 
-## 使用方法
+Bathroom fixtures and the water heater are positioned according to additional viewing-angle information provided by the user.
 
-将仓库克隆到 Codex skills 目录：
+The layout also accounts for character movement, door opening and closing, and furniture collision detection.
 
-```bash
-git clone https://github.com/Clarklevis1995/photo-to-cozy-home.git ~/.codex/skills/photo-to-cozy-home
-```
+### Final Validation Results
 
-然后在 Codex 中附上家庭照片并输入：
+The reference project's final validation included:
 
-```text
-使用 $photo-to-cozy-home，把我家做成一个可以互动的 Q 版 3D 小家。
-```
+- All **41 automated checks passed**.
+- Four fixed random seeds were used to run separate 10-minute simulations of autonomous activity involving two characters. The tests continuously checked destination arrival, spacing between characters, and collisions with walls and furniture.
+- Browser-based testing verified switching between the complete home and individual rooms, camera rotation, full-wall and cutaway views, computer and lighting interactions, wardrobe opening and closing, character movement between rooms, day/night cycles, and weather effects.
+- The browser console reported no errors or warnings.
+- Wall decorations remained entirely within actual wall geometry, avoiding doors, windows, and open passageways.
 
-用户可以只提供照片。更完整的输入通常包括：
+These results represent the actual performance of the first GPT 6 Astra reference project. They are not fixed testing requirements for every home.
 
-- 各房间和连接处的照片，尤其是门口朝向两个空间拍摄的照片；
-- 可选的户型图、尺寸或房间名称；
-- 可选的风格参考图；
-- 哪些家具需要交互，以及人物和时间系统的偏好。
+The Skill generates and executes appropriate validation checks based on each project's scope.
 
-若没有户型图，Skill 会先拼接候选平面布局，并询问类似“站在卧室门口向里看，卫生间门在正前方还是右侧？”这样的具体问题。它不会要求用户先完成一份冗长问卷，也不会把照片顺序当成确定的空间连接。
+## Installation and Usage
 
-## 工作原则
+Clone the repository into your Codex skills directory:
 
-空间连通和家具关系优先于装饰效果。Skill 会区分已确认信息、有依据的推断和未知项，并将用户纠正写回同一份布局数据。它包含针对以下常见问题的约束：
+    git clone https://github.com/Clarklevis1995/photo-to-cozy-home.git ~/.codex/skills/photo-to-cozy-home
 
-- 共用墙重复、墙面冲突和开放空间出现虚构门框；
-- 房间名称换了，但家具、卫浴和人物路线没有一起移动；
-- 人物在窄门、书房或相向行走时永久卡住；
-- 衣柜门穿过家具或打开后没有真实内部；
-- 挂画越过墙边、覆盖门窗或悬在开放通道上；
-- 单房间视图和平面图使用了不同坐标。
+Then attach photographs of your home in Codex and enter:
 
-## 仓库结构
+    Use $photo-to-cozy-home to transform my home into an interactive, chibi-style 3D miniature home.
 
-```text
-photo-to-cozy-home/
-├── SKILL.md
-├── agents/openai.yaml
-├── references/
-│   ├── reconstruction.md
-│   ├── implementation.md
-│   └── validation.md
-└── assets/showcase/
-```
+### Recommended Inputs
 
-- [SKILL.md](SKILL.md)：入口、适用范围、工作流程和交付规则。
-- [reconstruction.md](references/reconstruction.md)：从照片和可选户型图推导空间。
-- [implementation.md](references/implementation.md)：WebGL 建模、家具、人物、灯光和交互约束。
-- [validation.md](references/validation.md)：结构、导航、浏览器和交付验收场景。
+Users can get started with photographs alone.
 
-## 隐私与限制
+However, more complete inputs generally include:
 
-家庭照片默认只留在当前用户的本地项目中，不应复制进 Skill 模板或未经授权上传。公开案例应只使用用户明确允许的生成结果，并移除地址、人物照片和其他可识别信息。
+- Photographs of individual rooms and connecting areas, especially pictures taken from doorways looking into both adjoining spaces.
+- An optional floor plan, room measurements, or room names.
+- Optional visual references for the desired artistic style.
+- Preferences for interactive furniture, character behavior, and the time simulation system.
 
-照片推导的尺寸和未拍透区域属于估计，不能替代建筑测绘、结构安全评估或真实日照分析。没有现场尺寸时，成品应清楚标注可继续校准的部分。
+### When No Floor Plan Is Available
 
-## 模型说明
+If no floor plan is provided, the Skill first assembles a proposed spatial layout.
 
-创建与首个案例验证模型：**GPT 6 Astra**。
+It then asks specific questions, such as:
 
-其他模型可以直接加载本 Skill 自行尝试。建议特别观察它们在多图空间拼接、用户纠错后的全局同步、双人导航长测和浏览器实际验收上的表现。
+> When standing at the bedroom doorway and looking inside, is the bathroom door directly ahead or on the right?
+
+The Skill does not require users to complete a lengthy questionnaire before getting started.
+
+It also does not assume that the order in which photographs were provided represents confirmed spatial connections.
+
+## Core Design Principles
+
+Spatial connectivity and furniture relationships take priority over decorative effects.
+
+The Skill distinguishes between confirmed information, evidence-based inferences, and unknown information, and writes user corrections back to the same shared layout dataset.
+
+It includes constraints designed to prevent the following common problems:
+
+- Duplicate shared walls, conflicting wall geometry, and fictional door frames appearing in open spaces.
+- Room names being changed without simultaneously updating furniture, bathrooms, and character navigation routes.
+- Characters becoming permanently stuck in narrow doorways, studies, or when walking toward one another.
+- Wardrobe doors passing through furniture or opening without revealing a realistic interior.
+- Wall decorations extending beyond wall edges, covering doors or windows, or floating over open passageways.
+- Individual room views and floor plans using inconsistent coordinate systems.
+
+## Repository Structure
+
+    photo-to-cozy-home/
+    ├── SKILL.md
+    ├── agents/openai.yaml
+    ├── references/
+    │   ├── reconstruction.md
+    │   ├── implementation.md
+    │   └── validation.md
+    └── assets/showcase/
+
+- [SKILL.md](SKILL.md): Entry point, supported use cases, workflow, and delivery requirements.
+- [reconstruction.md](references/reconstruction.md): Deriving spatial layouts from photographs and optional floor plans.
+- [implementation.md](references/implementation.md): WebGL modeling, furniture, characters, lighting, and interaction constraints.
+- [validation.md](references/validation.md): Structural validation, navigation testing, browser testing, and final delivery acceptance scenarios.
+
+## Privacy and Limitations
+
+Family photographs should remain within the user's local project by default.
+
+They should not be copied into Skill templates or uploaded without authorization.
+
+Public demonstrations should use only generated results explicitly approved by the user and should remove addresses, personal photographs, and other identifying information.
+
+Dimensions estimated from photographs and areas not fully captured in images are approximations.
+
+They cannot replace professional architectural measurements, structural safety assessments, or real-world sunlight and daylight analysis.
+
+When actual on-site measurements are unavailable, the finished project should clearly identify areas that may require further calibration.
+
+## Model Information
+
+**Model used for creation and first reference-project validation: GPT 6 Astra.**
+
+Other models can load and attempt to execute this Skill directly.
+
+When evaluating alternative models, particular attention should be paid to their performance in multi-image spatial reconstruction, global synchronization after user corrections, long-duration navigation testing involving two characters, and actual browser-based validation.
